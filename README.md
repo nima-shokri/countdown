@@ -13,7 +13,7 @@ An in-depth paragraph about your project and overview of use.
 
 ## Get start
 
-Download or clone the project.And change the following lines.
+Download or clone the project and change the following lines.
 ```js
 const deadline = new Date('2020-12-03T19:00:00.000Z'); // Austrian Time Zone
 const days = 10; // Total days
