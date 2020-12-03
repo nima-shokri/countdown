@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>COMPANY</title>
+  <link rel="icon" href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html,
+    body {
+      height: 100%;
+      padding: 5px;
+      margin: 0;
+      color: white;
+      font-family: montserrat, Tahoma, sans-serif;
+      background-image: url(img/bg-3.jpg);
+      background-position: center center;
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .box {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      /* border: solid 1px red; */
+      border-radius: 1000px;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .circle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+    }
+
+    .inner-shadow {
+      box-shadow: inset 5px 5px 10px #000;
+    }
+
+    .timer {
+      background-color: white;
+      box-shadow: 5px 5px 10px #000;
+      border-radius: 1000px;
+      background-image: url(img/bg-3.jpg);
+      background-position: center center;
+      position: absolute;
+      top: 25px;
+      bottom: 25px;
+      right: 25px;
+      left: 25px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .timer img {
+      width: 120px;
+    }
+
+    .timer h1 {
+      line-height: 1;
+      margin-top: 10px;
+    }
+
+    .h-33 {
+      height: 33%;
+      padding-top: 5px;
+    }
+
+    .w-100 {
+      width: 100%;
+    }
+
+    .bt td {
+      border-top: dotted 1px silver;
+    }
+
+    table {
+      color: #ffa46f
+    }
+
+    table th {
+      font-size: 24px;
+    }
+    .max-size{
+      max-width: 450px;
+      max-height: 450px;
+    }
+    .min-size{
+      min-width: 300px;
+      min-height: 300px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class='container'>
+    <div class='box' id="box">
+      <div class="circle">
+        <canvas id="myCanvas"></canvas>
+      </div>
+      <div class="max-size min-size box inner-shadow">
+        <div class="timer">
+
+          <div class='h-33 text-center'>
+            <img src="img/logo-web.png" alt="TickTron">
+            <h1>COMPANY</h1>
+          </div>
+          <div class='h-33' style='padding:30px 20px 20px 20px;'>
+            <table class="w-100 text-center" cellspacing="2">
+              <tr>
+                <th width="25%" height="31.2px" id="days"></th>
+                <th width="25%" id="hours"></th>
+                <th width="25%" id="minutes"></th>
+                <th id="seconds"></th>
+              </tr>
+              <tr class='bt'>
+                <td>Day</td>
+                <td>Hour</td>
+                <td>Minute</td>
+                <td>Second</td>
+              </tr>
+            </table>
+          </div>
+          <div class='h-33 text-center'>
+            <br>
+            <br>
+            <strong>COMING SOON</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <script>
+
+    const deadline = new Date('2020-12-03T19:00:00.000Z');
+    const days = 10;
+    var radius = 0;
+    
+    window.addEventListener('resize', init);
+    window.addEventListener('DOMContentLoaded', init);
+
+    function init() {
+      var boxWidth = document.querySelector('#box').offsetWidth;
+      boxWidth = (boxWidth > 450) ? 450 : boxWidth;
+      boxWidth = (boxWidth < 300) ? 300 : boxWidth;
+
+      document.querySelector('#box').style.height = boxWidth + 'px';
+      document.querySelector('#box').style.width = boxWidth + 'px';
+      document.querySelector('#box canvas').setAttribute("width", boxWidth + 'px');
+      document.querySelector('#box canvas').setAttribute("height", boxWidth + 'px');
+      radius = boxWidth / 2 - 25;
+      timer();
+    }
+
+
+    function graph() {
+
+
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var x = canvas.width / 2;
+      var y = canvas.height / 2;
+      var startAngle = 0 * Math.PI;
+      var endAngle = progress() * Math.PI;
+      var counterClockwise = false;
+
+      context.beginPath();
+      context.arc(x, y, radius, 0, 2 * Math.PI, counterClockwise);
+      context.strokeStyle = "gray"; //blue
+      context.lineWidth = 50;
+      context.stroke();
+
+
+      context.beginPath();
+      context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
+      context.lineWidth = 50;
+      context.strokeStyle = '#b4ff6f';
+      context.stroke();
+
+    }
+
+    var t = setInterval(function () {
+      timer();
+    }, 1000);
+
+    function progress() {
+      const current = new Date();
+      const diff = deadline - current;
+      var total = days * 24 * 60 * 60 * 1000;
+      var progres = ((total - diff) / (24 * 60 * 60 * 1000) * 2) / 10;
+      return progres;
+
+
+    }
+    function timer() {
+      const current = new Date();
+
+      const diff = deadline - current;
+
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24)) + "";
+      var hours = Math.floor((diff / (1000 * 60 * 60)) % 24) + "";
+      var minutes = Math.floor((diff / (1000 * 60)) % 60) + "";
+      var seconds = Math.floor((diff / 1000) % 60) + "";
+
+      document.getElementById('days').innerHTML = days;
+      document.getElementById('hours').innerHTML = hours;
+      document.getElementById('minutes').innerHTML = minutes;
+      document.getElementById('seconds').innerHTML = seconds;
+      graph();
+    }
+  </script>
+</body>
+
+</html>
