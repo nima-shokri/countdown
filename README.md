@@ -2,9 +2,6 @@
 
 A Simple, Responsive JavaScript Countdown to Date which has a graph.
 
-## Description
-
-An in-depth paragraph about your project and overview of use.
 
 ## Screenshots
 
