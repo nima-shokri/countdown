@@ -17,6 +17,9 @@ const deadline = new Date('2020-12-03T19:00:00.000Z'); // Austrian Time Zone
 const days = 10; // Total days
 ```
 
+## Demo
+[Demo](https://nima-shokri.github.io/countdown/)
+
 ## Authors
 
 Contributors names and contact info
